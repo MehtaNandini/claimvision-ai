@@ -67,7 +67,6 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Main Content Canvas */}
       <main className="ml-[260px] min-h-screen relative overflow-hidden flex-1 flex flex-col">
-        {/* Top Navigation Bar */}
         <header className="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant z-40 flex justify-between items-center px-lg">
           <div className="flex items-center gap-lg w-1/3">
             <div className="relative w-full max-w-sm group">
@@ -81,10 +80,15 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           
           <div className="flex items-center gap-md">
-            <button className="flex items-center gap-2 px-md py-2 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:opacity-90 transition-opacity">
-              <span className="material-symbols-outlined text-[18px]">file_download</span>
-              Export Report
-            </button>
+            {location.pathname !== '/claims/new' && (
+              <Link 
+                to="/claims/new"
+                className="flex items-center gap-2 px-md py-2 bg-primary text-on-primary font-label-md text-label-md rounded-xl hover:opacity-90 transition-opacity glowing-btn"
+              >
+                <span className="material-symbols-outlined text-[18px]">add</span>
+                New Claim
+              </Link>
+            )}
             <div className="h-8 w-px bg-outline-variant mx-2"></div>
             <button className="p-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-xl transition-all relative">
               <span className="material-symbols-outlined">notifications</span>
