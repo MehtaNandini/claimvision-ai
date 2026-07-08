@@ -1,0 +1,13 @@
+{
+  "claim_id": "CLM-2023-10-881",
+  "claimant": "Jane Doe",
+  "vehicle": {
+    "brand": "Toyota",
+    "model": "Camry",
+    "year": 2020,
+    "mileage": 45000
+  },
+  "accident_date": "2023-10-14",
+  "description": "Rear-ended by another vehicle at a stop sign. Damage to rear bumper and trunk.",
+  "status": "OPEN"
+}

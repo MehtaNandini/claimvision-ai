@@ -1,0 +1,18 @@
+AUTO REPAIR INVOICE
+
+Date: Oct 16, 2023
+Invoice #: INV-99021
+Vendor: City Central Body Shop
+Address: 123 Main St, Anytown, AT 12345
+
+Billed To:
+Jane Doe
+
+Items:
+- Rear Bumper Replacement: $850.00
+- Trunk lid repair and paint: $400.00
+- Labor (4 hours): $400.00
+
+Subtotal: $1650.00
+Tax (8%): $132.00
+TOTAL AMOUNT: $1782.00
