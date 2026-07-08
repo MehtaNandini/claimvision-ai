@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
+from app.schemas.image_schema import ImageAnalysisResponse
 
 class RiskReportResponse(BaseModel):
     id: int
