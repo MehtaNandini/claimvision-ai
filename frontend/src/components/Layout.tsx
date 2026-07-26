@@ -11,16 +11,16 @@ export default function Layout({ children }: LayoutProps) {
   const navItems = [
     { path: '/', icon: 'dashboard', label: 'Dashboard' },
     { path: '/claims/new', icon: 'description', label: 'Claims Management' },
-    { path: '#', icon: 'psychology', label: 'AI Insights' },
-    { path: '#', icon: 'security', label: 'Risk Models' },
-    { path: '#', icon: 'analytics', label: 'Reporting' },
-    { path: '#', icon: 'settings', label: 'Settings' },
+    { path: '/#insights', icon: 'psychology', label: 'AI Insights' },
+    { path: '/#risk-models', icon: 'security', label: 'Risk Models' },
+    { path: '/#reporting', icon: 'analytics', label: 'Reporting' },
+    { path: '/#settings', icon: 'settings', label: 'Settings' },
   ];
 
   return (
-    <div className="flex bg-background text-on-background min-h-screen font-body-md selection:bg-primary-container selection:text-on-primary-container">
+    <div className="flex bg-background text-on-background h-screen font-body-md selection:bg-primary-container selection:text-on-primary-container">
       {/* Sidebar Navigation */}
-      <aside className="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-lg z-50">
+      <aside className="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-lg z-50 shrink-0">
         <div className="px-lg mb-3xl">
           <h1 className="font-headline-md text-headline-md font-bold text-primary tracking-tight">ClaimVision AI</h1>
           <p className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider opacity-70 mt-1">Enterprise Suite</p>
@@ -66,8 +66,8 @@ export default function Layout({ children }: LayoutProps) {
       </aside>
 
       {/* Main Content Canvas */}
-      <main className="ml-[260px] min-h-screen relative overflow-hidden flex-1 flex flex-col">
-        <header className="fixed top-0 right-0 w-[calc(100%-260px)] h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant z-40 flex justify-between items-center px-lg">
+      <main className="ml-[260px] h-screen relative overflow-hidden flex-1 flex flex-col">
+        <header className="sticky top-0 w-full shrink-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant z-40 flex justify-between items-center px-lg">
           <div className="flex items-center gap-lg w-1/3">
             <div className="relative w-full max-w-sm group">
               <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
