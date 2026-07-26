@@ -11,10 +11,10 @@ export default function Layout({ children }: LayoutProps) {
   const navItems = [
     { path: '/', icon: 'dashboard', label: 'Dashboard' },
     { path: '/claims/new', icon: 'description', label: 'Claims Management' },
-    { path: '/#insights', icon: 'psychology', label: 'AI Insights' },
-    { path: '/#risk-models', icon: 'security', label: 'Risk Models' },
-    { path: '/#reporting', icon: 'analytics', label: 'Reporting' },
-    { path: '/#settings', icon: 'settings', label: 'Settings' },
+    { path: '/insights', icon: 'psychology', label: 'AI Insights' },
+    { path: '/risk-models', icon: 'security', label: 'Risk Models' },
+    { path: '/reporting', icon: 'analytics', label: 'Reporting' },
+    { path: '/settings', icon: 'settings', label: 'Settings' },
   ];
 
   return (
