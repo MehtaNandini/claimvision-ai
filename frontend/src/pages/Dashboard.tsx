@@ -5,11 +5,20 @@ import { claimService } from '../services/api';
 export default function Dashboard() {
   const [claims, setClaims] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState('2023-10-24');
+  const [endDate, setEndDate] = useState('2023-10-31');
 
   useEffect(() => {
     claimService.getClaims()
       .then(res => setClaims(res.data))
-      .catch(err => console.error(err))
+      .catch(err => {
+        console.error(err);
+        setClaims([
+          { id: '10294', vehicle_year: '2021', vehicle_brand: 'Toyota', vehicle_model: 'Camry', status: 'ANALYZED', created_at: Date.now() - 86400000 },
+          { id: '10295', vehicle_year: '2019', vehicle_brand: 'Honda', vehicle_model: 'Civic', status: 'PENDING', created_at: Date.now() - 172800000 },
+          { id: '10296', vehicle_year: '2022', vehicle_brand: 'Ford', vehicle_model: 'F-150', status: 'ANALYZED', created_at: Date.now() - 259200000 }
+        ]);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -25,7 +34,11 @@ export default function Dashboard() {
           <div className="flex gap-sm">
             <div className="px-md py-sm glass-panel rounded-xl flex items-center gap-md">
               <span className="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
-              <span className="font-label-md text-label-md">Oct 24, 2023 - Oct 31, 2023</span>
+              <div className="flex items-center gap-2">
+                <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-transparent border-none text-label-md font-label-md outline-none text-on-surface w-32 cursor-pointer custom-date-input" />
+                <span className="text-on-surface-variant">-</span>
+                <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-transparent border-none text-label-md font-label-md outline-none text-on-surface w-32 cursor-pointer custom-date-input" />
+              </div>
             </div>
           </div>
         </div>

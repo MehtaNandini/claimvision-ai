@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createContext, useState } from 'react';
 import Dashboard from './pages/Dashboard';
 import CreateClaim from './pages/CreateClaim';
 import ClaimDetails from './pages/ClaimDetails';
@@ -9,9 +10,18 @@ import Reporting from './pages/Reporting';
 import Settings from './pages/Settings';
 import Layout from './components/Layout';
 
+export const UserContext = createContext<any>(null);
+
 function App() {
+  const [user, setUser] = useState({
+    name: 'Alex Rivera',
+    role: 'Senior Adjuster',
+    email: 'alex.rivera@claimvision.ai'
+  });
+
   return (
-    <Router>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Router>
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -24,7 +34,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </Layout>
-    </Router>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

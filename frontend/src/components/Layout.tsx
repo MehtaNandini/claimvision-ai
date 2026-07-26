@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { UserContext } from '../App';
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,6 +9,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { user } = useContext(UserContext);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [notifications, setNotifications] = useState([
@@ -183,8 +185,8 @@ export default function Layout({ children }: LayoutProps) {
             
             <div className="flex items-center gap-3 pl-2">
               <div className="text-right hidden sm:block">
-                <p className="font-label-md text-label-md text-on-surface">Alex Rivera</p>
-                <p className="text-[10px] text-on-surface-variant uppercase tracking-tighter">Senior Adjuster</p>
+                <p className="font-label-md text-label-md text-on-surface">{user?.name || 'Alex Rivera'}</p>
+                <p className="text-[10px] text-on-surface-variant uppercase tracking-tighter">{user?.role || 'Senior Adjuster'}</p>
               </div>
               <img 
                 className="w-9 h-9 rounded-full border border-outline-variant object-cover" 

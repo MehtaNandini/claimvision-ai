@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../App';
 
 export default function Settings() {
+  const { user, setUser } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState('profile');
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [smsAlerts, setSmsAlerts] = useState(false);
@@ -19,9 +21,9 @@ export default function Settings() {
 
   // Profile State
   const [profile, setProfile] = useState({
-    name: 'Alex Rivera',
-    role: 'Senior Adjuster',
-    email: 'arivera@claimvision.ai'
+    name: user?.name || 'Alex Rivera',
+    role: user?.role || 'Senior Adjuster',
+    email: user?.email || 'alex.rivera@claimvision.ai'
   });
 
   const handleSave = () => {
@@ -29,10 +31,11 @@ export default function Settings() {
     setSaveSuccess(false);
     // Simulate API call
     setTimeout(() => {
+      setUser(profile); // Update global state
       setIsSaving(false);
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
-    }, 800);
+    }, 1200);
   };
 
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
