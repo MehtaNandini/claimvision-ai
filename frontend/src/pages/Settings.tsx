@@ -20,11 +20,7 @@ export default function Settings() {
   }, [theme]);
 
   // Profile State
-  const [profile, setProfile] = useState({
-    name: user?.name || 'Alex Rivera',
-    role: user?.role || 'Senior Adjuster',
-    email: user?.email || 'alex.rivera@claimvision.ai'
-  });
+  const [profile, setProfile] = useState(user);
 
   const handleSave = () => {
     setIsSaving(true);
@@ -113,11 +109,28 @@ export default function Settings() {
                 <div className="flex flex-col md:flex-row gap-xl items-start">
                   <div className="flex flex-col items-center gap-md">
                     <img 
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxrqwgNUJ6rAjZjEznBrHbESTinAAEk_SCAxadzuLFfhe8ARCu59NzPbt3UVBgBLEpLo8rJP3EPDO4egovqqpU51ZF2THMM_s22z88COObzrBT3sjbbxWAWmr0rIgvi1RZjCfN-DqjZSfy-5vlrufjK3bB0ZzebtUinsNGRCsQQ23qWxJvo6Z0iq9ISnTR_m5x7yfTAHKZ4RNc07lccVfUnjopBNyWI8WrBDRUAJilr0dPdWGMhyWu" 
+                      src={profile.photo} 
                       alt="Profile"
                       className="w-24 h-24 rounded-full object-cover border-2 border-primary/50"
                     />
-                    <button className="text-primary font-label-md hover:underline" onClick={() => alert("Upload dialog would open here")}>Change Photo</button>
+                    <label className="text-primary font-label-md hover:underline cursor-pointer">
+                      Change Photo
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        className="hidden" 
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              setProfile({ ...profile, photo: reader.result as string });
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }} 
+                      />
+                    </label>
                   </div>
                   <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-md w-full">
                     <div className="flex flex-col gap-1">

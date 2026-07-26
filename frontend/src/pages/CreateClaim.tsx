@@ -7,11 +7,11 @@ export default function CreateClaim() {
   const [loading, setLoading] = useState(false);
   const [statusText, setStatusText] = useState('Waiting for upload...');
   const [formData, setFormData] = useState({
-    vehicle_brand: '',
-    vehicle_model: '',
-    vehicle_year: new Date().getFullYear(),
-    vehicle_mileage: '',
-    description: ''
+    vehicle_brand: 'Toyota',
+    vehicle_model: 'Camry',
+    vehicle_year: 2021,
+    vehicle_mileage: '45000',
+    description: 'Rear-end collision at a red light. The rear bumper is cracked and the trunk is slightly dented.'
   });
   
   const [images, setImages] = useState<File[]>([]);

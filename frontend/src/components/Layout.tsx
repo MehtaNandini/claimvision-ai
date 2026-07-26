@@ -183,7 +183,7 @@ export default function Layout({ children }: LayoutProps) {
               <span className="material-symbols-outlined">{isDarkTheme ? 'light_mode' : 'dark_mode'}</span>
             </button>
             
-            <div className="flex items-center gap-3 pl-2">
+            <Link to="/settings" className="flex items-center gap-3 pl-2 hover:opacity-80 cursor-pointer transition-opacity">
               <div className="text-right hidden sm:block">
                 <p className="font-label-md text-label-md text-on-surface">{user?.name || 'Alex Rivera'}</p>
                 <p className="text-[10px] text-on-surface-variant uppercase tracking-tighter">{user?.role || 'Senior Adjuster'}</p>
@@ -191,9 +191,9 @@ export default function Layout({ children }: LayoutProps) {
               <img 
                 className="w-9 h-9 rounded-full border border-outline-variant object-cover" 
                 alt="Profile" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxrqwgNUJ6rAjZjEznBrHbESTinAAEk_SCAxadzuLFfhe8ARCu59NzPbt3UVBgBLEpLo8rJP3EPDO4egovqqpU51ZF2THMM_s22z88COObzrBT3sjbbxWAWmr0rIgvi1RZjCfN-DqjZSfy-5vlrufjK3bB0ZzebtUinsNGRCsQQ23qWxJvo6Z0iq9ISnTR_m5x7yfTAHKZ4RNc07lccVfUnjopBNyWI8WrBDRUAJilr0dPdWGMhyWu" 
+                src={user?.photo || 'https://ui-avatars.com/api/?name=Alex+Rivera&background=3b82f6&color=fff&size=256'} 
               />
-            </div>
+            </Link>
           </div>
         </header>
 
