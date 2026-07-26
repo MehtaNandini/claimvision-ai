@@ -73,7 +73,7 @@ export default function RiskReport() {
               <span className="font-label-md text-label-md text-on-surface-variant uppercase tracking-tighter mt-1">Risk Score</span>
             </div>
           </div>
-          <div className="max-w-md text-center md:text-left z-10">
+          <div className="flex-1 min-w-[280px] max-w-xl text-center md:text-left z-10">
             <div className={`inline-flex items-center gap-sm px-md py-1 rounded-full font-label-md mb-md ${riskScore > 70 ? 'bg-error-container text-on-error-container' : riskScore > 40 ? 'bg-tertiary-container text-on-tertiary-container' : 'bg-primary-container text-on-primary-container'}`}>
               <span className="material-symbols-outlined text-sm">{riskScore > 70 ? 'warning' : 'info'}</span>
               STATUS: {report.risk_level.toUpperCase()}

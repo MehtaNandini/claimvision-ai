@@ -94,7 +94,7 @@ export default function ClaimDetails() {
           </div>
         ) : (
           <div className="relative flex-1 rounded-2xl overflow-hidden glass-panel group">
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop')" }}></div>
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center" style={{ backgroundImage: `url(${claim.images && claim.images.length > 0 ? claim.images[0] : '/bumper_damage.jpg'})` }}></div>
             {/* Simulated Bounding Boxes */}
             <div className="ai-bounding-box" style={{ top: '35%', left: '45%', width: '35%', height: '40%' }}>
               <span className="ai-label">Structural Damage: High (89%)</span>

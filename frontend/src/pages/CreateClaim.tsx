@@ -11,7 +11,7 @@ export default function CreateClaim() {
     vehicle_model: 'Camry',
     vehicle_year: 2021,
     vehicle_mileage: '45000',
-    description: 'Rear-end collision at a red light. The rear bumper is cracked and the trunk is slightly dented.'
+    description: 'Front-end collision at an intersection. The front bumper is severely cracked and the left headlight is shattered.'
   });
   
   const [images, setImages] = useState<File[]>([]);

@@ -24,18 +24,12 @@ export default function Settings() {
   const [showAvatarSelector, setShowAvatarSelector] = useState(false);
 
   const AVATAR_OPTIONS = [
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Mimi',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Jasper',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Tinkerbell',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Jack',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Snickers',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Oliver',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Bella',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Lola',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Max',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Daisy',
+    '/avatars/avatar_1.png',
+    '/avatars/avatar_2.png',
+    '/avatars/avatar_3.png',
+    '/avatars/avatar_4.png',
+    '/avatars/avatar_5.png',
+    '/avatars/avatar_6.png',
   ];
 
   const handleSave = () => {
