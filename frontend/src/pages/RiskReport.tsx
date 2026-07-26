@@ -6,6 +6,8 @@ export default function RiskReport() {
   const { id } = useParams();
   const [report, setReport] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanComplete, setScanComplete] = useState(false);
 
   useEffect(() => {
     fetchReport();
@@ -20,6 +22,14 @@ export default function RiskReport() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDeepScan = () => {
+    setIsScanning(true);
+    setTimeout(() => {
+      setIsScanning(false);
+      setScanComplete(true);
+    }, 2000);
   };
 
   if (loading || !report) return (
@@ -119,11 +129,31 @@ export default function RiskReport() {
 
           <div className="bg-primary-container/5 rounded-2xl p-lg border border-primary/20 flex flex-col justify-center items-center text-center">
             <div className="mb-md">
-              <span className="material-symbols-outlined text-primary text-4xl">verified_user</span>
+              <span className={`material-symbols-outlined text-4xl ${scanComplete ? 'text-green-500' : 'text-primary'} ${isScanning ? 'animate-spin' : ''}`}>
+                {scanComplete ? 'check_circle' : isScanning ? 'autorenew' : 'verified_user'}
+              </span>
             </div>
-            <h4 className="font-title-lg text-title-lg text-on-surface mb-xs">Run Deep Scan</h4>
-            <p className="font-label-md text-label-md text-on-surface-variant mb-md">Perform secondary neural network validation on all claim documents.</p>
-            <button className="w-full py-2 bg-primary/10 hover:bg-primary/20 border border-primary/40 text-primary rounded-xl font-label-md transition-all">Initiate Validation</button>
+            <h4 className="font-title-lg text-title-lg text-on-surface mb-xs">
+              {scanComplete ? 'Validation Complete' : isScanning ? 'Scanning...' : 'Run Deep Scan'}
+            </h4>
+            <p className="font-label-md text-label-md text-on-surface-variant mb-md">
+              {scanComplete 
+                ? 'Secondary neural network validation completed successfully. No new risks found.' 
+                : 'Perform secondary neural network validation on all claim documents.'}
+            </p>
+            <button 
+              onClick={handleDeepScan}
+              disabled={isScanning || scanComplete}
+              className={`w-full py-2 rounded-xl font-label-md transition-all ${
+                scanComplete 
+                  ? 'bg-green-500/10 text-green-500 border border-green-500/40 opacity-50 cursor-not-allowed'
+                  : isScanning
+                    ? 'bg-primary/20 text-primary border border-primary/40 opacity-70 cursor-wait'
+                    : 'bg-primary/10 hover:bg-primary/20 border border-primary/40 text-primary'
+              }`}
+            >
+              {scanComplete ? 'Validated' : isScanning ? 'Initiating...' : 'Initiate Validation'}
+            </button>
           </div>
         </div>
 
