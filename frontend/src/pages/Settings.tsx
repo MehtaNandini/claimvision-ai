@@ -21,6 +21,22 @@ export default function Settings() {
 
   // Profile State
   const [profile, setProfile] = useState(user);
+  const [showAvatarSelector, setShowAvatarSelector] = useState(false);
+
+  const AVATAR_OPTIONS = [
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Mimi',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Jasper',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Tinkerbell',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Jack',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Snickers',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Oliver',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Bella',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Lola',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Max',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Daisy',
+  ];
 
   const handleSave = () => {
     setIsSaving(true);
@@ -111,26 +127,35 @@ export default function Settings() {
                     <img 
                       src={profile.photo} 
                       alt="Profile"
-                      className="w-24 h-24 rounded-full object-cover border-2 border-primary/50"
+                      className="w-24 h-24 rounded-full object-cover border-2 border-primary/50 bg-surface-container"
                     />
-                    <label className="text-primary font-label-md hover:underline cursor-pointer">
-                      Change Photo
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                              setProfile({ ...profile, photo: reader.result as string });
-                            };
-                            reader.readAsDataURL(file);
-                          }
-                        }} 
-                      />
-                    </label>
+                    <div className="flex gap-2 items-center mt-1">
+                      <label className="text-primary font-label-md hover:underline cursor-pointer">
+                        Upload
+                        <input 
+                          type="file" 
+                          accept="image/*" 
+                          className="hidden" 
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onloadend = () => {
+                                setProfile({ ...profile, photo: reader.result as string });
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }} 
+                        />
+                      </label>
+                      <span className="text-on-surface-variant/50 text-xs">|</span>
+                      <button 
+                        onClick={() => setShowAvatarSelector(!showAvatarSelector)}
+                        className="text-primary font-label-md hover:underline cursor-pointer"
+                      >
+                        Choose Avatar
+                      </button>
+                    </div>
                   </div>
                   <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-md w-full">
                     <div className="flex flex-col gap-1">
@@ -165,6 +190,26 @@ export default function Settings() {
                     </div>
                   </div>
                 </div>
+
+                {showAvatarSelector && (
+                  <div className="mt-xl pt-lg border-t border-outline-variant/30 animate-fade-in">
+                    <h4 className="font-label-md text-on-surface-variant uppercase tracking-widest mb-md">Select an Avatar</h4>
+                    <div className="grid grid-cols-4 sm:grid-cols-6 gap-md">
+                      {AVATAR_OPTIONS.map((url, idx) => (
+                        <button 
+                          key={idx}
+                          onClick={() => {
+                            setProfile({ ...profile, photo: url });
+                            setShowAvatarSelector(false);
+                          }}
+                          className={`rounded-full overflow-hidden border-2 transition-transform hover:scale-110 bg-surface-container ${profile.photo === url ? 'border-primary shadow-lg shadow-primary/20 scale-110' : 'border-transparent'}`}
+                        >
+                          <img src={url} alt={`Avatar ${idx}`} className="w-full h-auto" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
