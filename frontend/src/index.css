@@ -78,10 +78,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.light-theme {
+  --color-background: #f8fafc;
+  --color-on-background: #0f172a;
+  --color-surface-container-low: #f1f5f9;
+  --color-surface-container: #e2e8f0;
+  --color-surface-container-highest: #cbd5e1;
+  --color-surface-variant: #e2e8f0;
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #475569;
+  --color-outline-variant: #cbd5e1;
+}
+
 .glass-panel {
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(12px);
   border: 1px solid #1e293b;
+}
+
+body.light-theme .glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e2e8f0;
 }
 
 .glass-panel:hover {

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -7,6 +8,17 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+    if (isDarkTheme) {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+  };
 
   const navItems = [
     { path: '/', icon: 'dashboard', label: 'Dashboard' },
@@ -79,7 +91,7 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           </div>
           
-          <div className="flex items-center gap-md">
+          <div className="flex items-center gap-md relative">
             {location.pathname !== '/claims/new' && (
               <Link 
                 to="/claims/new"
@@ -90,12 +102,55 @@ export default function Layout({ children }: LayoutProps) {
               </Link>
             )}
             <div className="h-8 w-px bg-outline-variant mx-2"></div>
-            <button className="p-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-xl transition-all relative">
-              <span className="material-symbols-outlined">notifications</span>
-              <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-            </button>
-            <button className="p-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-xl transition-all">
-              <span className="material-symbols-outlined">dark_mode</span>
+            
+            {/* Notification Dropdown */}
+            <div className="relative">
+              <button 
+                onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                className="p-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-xl transition-all relative"
+              >
+                <span className="material-symbols-outlined">notifications</span>
+                <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+              </button>
+              
+              {isNotificationOpen && (
+                <div className="absolute top-12 right-0 w-80 glass-panel rounded-xl shadow-lg border border-outline-variant z-50 animate-fade-in overflow-hidden">
+                  <div className="p-3 border-b border-outline-variant bg-surface-container-low/50">
+                    <h4 className="font-title-sm text-on-surface font-bold">Notifications</h4>
+                  </div>
+                  <div className="flex flex-col max-h-[300px] overflow-y-auto">
+                    <Link to="/insights" onClick={() => setIsNotificationOpen(false)} className="p-3 border-b border-outline-variant/30 hover:bg-surface-container-highest/50 transition-colors flex items-start gap-3">
+                      <div className="p-1.5 bg-amber-500/10 text-amber-400 rounded-full shrink-0">
+                        <span className="material-symbols-outlined !text-[16px]">troubleshoot</span>
+                      </div>
+                      <div>
+                        <p className="font-label-md text-sm text-on-surface">Suspicious Pattern Detected</p>
+                        <p className="text-xs text-on-surface-variant mt-1">AI flagged an anomaly in recent rear-end collisions.</p>
+                      </div>
+                    </Link>
+                    <Link to="/claims/10294" onClick={() => setIsNotificationOpen(false)} className="p-3 border-b border-outline-variant/30 hover:bg-surface-container-highest/50 transition-colors flex items-start gap-3">
+                      <div className="p-1.5 bg-emerald-500/10 text-emerald-400 rounded-full shrink-0">
+                        <span className="material-symbols-outlined !text-[16px]">task_alt</span>
+                      </div>
+                      <div>
+                        <p className="font-label-md text-sm text-on-surface">Claim Auto-Approved</p>
+                        <p className="text-xs text-on-surface-variant mt-1">Claim #10294 passed straight-through processing.</p>
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="p-2 text-center bg-surface-container/50">
+                    <button className="text-primary text-xs font-label-md hover:underline">Mark all as read</button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Theme Toggle */}
+            <button 
+              onClick={toggleTheme}
+              className="p-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-xl transition-all"
+            >
+              <span className="material-symbols-outlined">{isDarkTheme ? 'light_mode' : 'dark_mode'}</span>
             </button>
             
             <div className="flex items-center gap-3 pl-2">
