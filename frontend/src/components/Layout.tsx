@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -10,6 +10,15 @@ export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [notifications, setNotifications] = useState([
+    { id: 1, link: '/insights', title: 'Suspicious Pattern Detected', desc: 'AI flagged an anomaly in recent rear-end collisions.', icon: 'troubleshoot', color: 'amber' },
+    { id: 2, link: '/claims/10294', title: 'Claim Auto-Approved', desc: 'Claim #10294 passed straight-through processing.', icon: 'task_alt', color: 'emerald' },
+  ]);
+
+  // Close notification dropdown when location changes
+  useEffect(() => {
+    setIsNotificationOpen(false);
+  }, [location.pathname]);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -110,7 +119,9 @@ export default function Layout({ children }: LayoutProps) {
                 className="p-2 text-on-surface-variant hover:bg-surface-variant/20 rounded-xl transition-all relative"
               >
                 <span className="material-symbols-outlined">notifications</span>
-                <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                {notifications.length > 0 && (
+                  <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+                )}
               </button>
               
               {isNotificationOpen && (
@@ -119,28 +130,45 @@ export default function Layout({ children }: LayoutProps) {
                     <h4 className="font-title-sm text-on-surface font-bold">Notifications</h4>
                   </div>
                   <div className="flex flex-col max-h-[300px] overflow-y-auto">
-                    <Link to="/insights" onClick={() => setIsNotificationOpen(false)} className="p-3 border-b border-outline-variant/30 hover:bg-surface-container-highest/50 transition-colors flex items-start gap-3">
-                      <div className="p-1.5 bg-amber-500/10 text-amber-400 rounded-full shrink-0">
-                        <span className="material-symbols-outlined !text-[16px]">troubleshoot</span>
+                    {notifications.length === 0 ? (
+                      <div className="p-4 text-center text-on-surface-variant text-sm">
+                        No new notifications.
                       </div>
-                      <div>
-                        <p className="font-label-md text-sm text-on-surface">Suspicious Pattern Detected</p>
-                        <p className="text-xs text-on-surface-variant mt-1">AI flagged an anomaly in recent rear-end collisions.</p>
-                      </div>
-                    </Link>
-                    <Link to="/claims/10294" onClick={() => setIsNotificationOpen(false)} className="p-3 border-b border-outline-variant/30 hover:bg-surface-container-highest/50 transition-colors flex items-start gap-3">
-                      <div className="p-1.5 bg-emerald-500/10 text-emerald-400 rounded-full shrink-0">
-                        <span className="material-symbols-outlined !text-[16px]">task_alt</span>
-                      </div>
-                      <div>
-                        <p className="font-label-md text-sm text-on-surface">Claim Auto-Approved</p>
-                        <p className="text-xs text-on-surface-variant mt-1">Claim #10294 passed straight-through processing.</p>
-                      </div>
-                    </Link>
+                    ) : (
+                      notifications.map(notif => (
+                        <Link 
+                          key={notif.id} 
+                          to={notif.link} 
+                          onClick={() => {
+                            setNotifications(notifications.filter(n => n.id !== notif.id));
+                            setIsNotificationOpen(false);
+                          }} 
+                          className="p-3 border-b border-outline-variant/30 hover:bg-surface-container-highest/50 transition-colors flex items-start gap-3"
+                        >
+                          <div className={`p-1.5 rounded-full shrink-0 ${notif.color === 'amber' ? 'bg-amber-500/10 text-amber-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                            <span className="material-symbols-outlined !text-[16px]">{notif.icon}</span>
+                          </div>
+                          <div>
+                            <p className="font-label-md text-sm text-on-surface">{notif.title}</p>
+                            <p className="text-xs text-on-surface-variant mt-1">{notif.desc}</p>
+                          </div>
+                        </Link>
+                      ))
+                    )}
                   </div>
-                  <div className="p-2 text-center bg-surface-container/50">
-                    <button className="text-primary text-xs font-label-md hover:underline">Mark all as read</button>
-                  </div>
+                  {notifications.length > 0 && (
+                    <div className="p-2 text-center bg-surface-container/50">
+                      <button 
+                        onClick={() => {
+                          setNotifications([]);
+                          setIsNotificationOpen(false);
+                        }}
+                        className="text-primary text-xs font-label-md hover:underline"
+                      >
+                        Mark all as read
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
