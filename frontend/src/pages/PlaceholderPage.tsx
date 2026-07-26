@@ -7,8 +7,8 @@ export default function PlaceholderPage() {
 
   return (
     <div className="flex-1 overflow-y-auto custom-scrollbar pt-4 bg-background">
-      <div className="p-xl max-w-[1600px] mx-auto pb-[100px] h-full flex flex-col items-center justify-center">
-        <div className="glass-panel p-3xl rounded-3xl text-center max-w-2xl mx-auto border-primary/20 bg-surface-container-low/50">
+      <div className="p-xl w-full max-w-[1600px] mx-auto pb-[100px] h-full flex flex-col items-center justify-center">
+        <div className="glass-panel p-3xl w-full max-w-2xl rounded-3xl text-center mx-auto border-primary/20 bg-surface-container-low/50">
           <div className="w-24 h-24 bg-primary-container/20 text-primary rounded-full flex items-center justify-center mx-auto mb-xl">
             <span className="material-symbols-outlined !text-[48px]">construction</span>
           </div>
