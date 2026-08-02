@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
 from app.api import routes_claims, routes_uploads, routes_reports, routes_health
 from app.core.database import Base, engine
 
@@ -11,6 +13,10 @@ app = FastAPI(
     description="API for analyzing vehicle insurance claims using uploaded images, invoices, and claim documents.",
     version="1.0.0"
 )
+
+UPLOAD_DIR = Path("/tmp/claimvision_uploads")
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 # CORS configuration
 app.add_middleware(

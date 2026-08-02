@@ -107,7 +107,7 @@ export default function ClaimDetails() {
           </div>
         ) : (
           <div className="relative flex-1 rounded-2xl overflow-hidden glass-panel group">
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-300" style={{ backgroundImage: `url(${activeView === 'Front Left' ? '/front_left.jpg' : activeView === 'Rear Impact' ? '/rear_impact.jpg' : (claim.images && claim.images.length > 0 ? claim.images[0] : '/bumper_damage.jpg')})` }}></div>
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-300" style={{ backgroundImage: `url(${claim.images && claim.images.length > 0 ? claim.images[0] : (activeView === 'Front Left' ? '/front_left.jpg' : activeView === 'Rear Impact' ? '/rear_impact.jpg' : '/bumper_damage.jpg')})` }}></div>
             
             {/* Simulated Bounding Boxes */}
             {activeView === 'Front Right (Primary)' && (
