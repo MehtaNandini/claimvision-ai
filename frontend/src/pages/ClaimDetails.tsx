@@ -7,6 +7,7 @@ export default function ClaimDetails() {
   const [claim, setClaim] = useState<any>(null);
   const [report, setReport] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [activeView, setActiveView] = useState('Front Right (Primary)');
 
   useEffect(() => {
     fetchClaim();
@@ -70,9 +71,21 @@ export default function ClaimDetails() {
             <p className="font-body-md text-body-md text-on-surface-variant">Computer Vision: Multi-perspective damage assessment</p>
           </div>
           <div className="flex gap-2">
-            <button className="px-3 py-1.5 rounded-lg bg-surface-container-high text-label-md font-label-md border border-outline-variant">Front Left</button>
-            <button className="px-3 py-1.5 rounded-lg bg-primary/20 text-primary text-label-md font-label-md border border-primary/50">Front Right (Primary)</button>
-            <button className="px-3 py-1.5 rounded-lg bg-surface-container-high text-label-md font-label-md border border-outline-variant">Rear Impact</button>
+            <button 
+              onClick={() => setActiveView('Front Left')}
+              className={`px-3 py-1.5 rounded-lg text-label-md font-label-md border ${activeView === 'Front Left' ? 'bg-primary/20 text-primary border-primary/50' : 'bg-surface-container-high text-on-surface border-outline-variant'}`}>
+              Front Left
+            </button>
+            <button 
+              onClick={() => setActiveView('Front Right (Primary)')}
+              className={`px-3 py-1.5 rounded-lg text-label-md font-label-md border ${activeView === 'Front Right (Primary)' ? 'bg-primary/20 text-primary border-primary/50' : 'bg-surface-container-high text-on-surface border-outline-variant'}`}>
+              Front Right (Primary)
+            </button>
+            <button 
+              onClick={() => setActiveView('Rear Impact')}
+              className={`px-3 py-1.5 rounded-lg text-label-md font-label-md border ${activeView === 'Rear Impact' ? 'bg-primary/20 text-primary border-primary/50' : 'bg-surface-container-high text-on-surface border-outline-variant'}`}>
+              Rear Impact
+            </button>
           </div>
         </div>
         
@@ -94,17 +107,28 @@ export default function ClaimDetails() {
           </div>
         ) : (
           <div className="relative flex-1 rounded-2xl overflow-hidden glass-panel group">
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center" style={{ backgroundImage: `url(${claim.images && claim.images.length > 0 ? claim.images[0] : '/bumper_damage.jpg'})` }}></div>
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-300" style={{ backgroundImage: `url(${activeView === 'Front Left' ? '/front_left.jpg' : activeView === 'Rear Impact' ? '/rear_impact.jpg' : (claim.images && claim.images.length > 0 ? claim.images[0] : '/bumper_damage.jpg')})` }}></div>
+            
             {/* Simulated Bounding Boxes */}
-            <div className="ai-bounding-box" style={{ top: '35%', left: '45%', width: '35%', height: '40%' }}>
-              <span className="ai-label">Structural Damage: High (89%)</span>
-            </div>
-            <div className="ai-bounding-box !border-tertiary/60 !bg-tertiary/10" style={{ top: '45%', left: '55%', width: '20%', height: '15%' }}>
-              <span className="ai-label !bg-tertiary !text-on-tertiary-container">Headlight: Replace</span>
-            </div>
-            <div className="ai-bounding-box !border-error/60 !bg-error/10" style={{ top: '55%', left: '40%', width: '15%', height: '10%' }}>
-              <span className="ai-label !bg-error !text-on-error-container">Sensor: Fault</span>
-            </div>
+            {activeView === 'Front Right (Primary)' && (
+              <>
+                <div className="ai-bounding-box" style={{ top: '35%', left: '45%', width: '35%', height: '40%' }}>
+                  <span className="ai-label">Structural Damage: High (89%)</span>
+                </div>
+                <div className="ai-bounding-box !border-tertiary/60 !bg-tertiary/10" style={{ top: '45%', left: '55%', width: '20%', height: '15%' }}>
+                  <span className="ai-label !bg-tertiary !text-on-tertiary-container">Headlight: Replace</span>
+                </div>
+                <div className="ai-bounding-box !border-error/60 !bg-error/10" style={{ top: '55%', left: '40%', width: '15%', height: '10%' }}>
+                  <span className="ai-label !bg-error !text-on-error-container">Sensor: Fault</span>
+                </div>
+              </>
+            )}
+
+            {activeView === 'Rear Impact' && (
+              <div className="ai-bounding-box" style={{ top: '45%', left: '40%', width: '30%', height: '25%' }}>
+                <span className="ai-label">Minor Scrape (92%)</span>
+              </div>
+            )}
             
             <div className="absolute bottom-md right-md flex flex-col gap-sm">
               <button className="p-3 bg-surface/90 backdrop-blur-md rounded-full shadow-xl hover:bg-primary hover:text-on-primary transition-all">
