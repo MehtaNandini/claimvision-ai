@@ -110,7 +110,7 @@ export default function ClaimDetails() {
             <div className="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-300" style={{ backgroundImage: `url(${claim.images && claim.images.length > 0 ? claim.images[0] : (activeView === 'Front Left' ? '/front_left.jpg' : activeView === 'Rear Impact' ? '/rear_impact.jpg' : '/bumper_damage.jpg')})` }}></div>
             
             {/* Simulated Bounding Boxes */}
-            {activeView === 'Front Right (Primary)' && (
+            {activeView === 'Front Right (Primary)' && (!claim.images || claim.images.length === 0) && (
               <>
                 <div className="ai-bounding-box" style={{ top: '35%', left: '45%', width: '35%', height: '40%' }}>
                   <span className="ai-label">Structural Damage: High (89%)</span>
